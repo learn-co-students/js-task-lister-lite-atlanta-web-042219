@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", function(){
     document.querySelector('#create-task-form').addEventListener('submit', handleTodo)
-    // addTodo()
 })
 
 function handleTodo(e){
@@ -22,10 +21,15 @@ function handleTodo(e){
 function addTodo(todo){ 
   const list = document.querySelector('#tasks')
 
-    const li = document.createElement('li')
-    
-    li.textContent = todo
 
-        list.appendChild(li)
+    // const li = document.createElement('li')
+    
+    list.innerHTML += '<li>' + todo + '<button onclick="handleDelete(this);">x</button></li>';
+
+        // list.appendChild(li)
 }
-;
+function handleDelete(x){
+  console.log(x.parentNode)
+  console.log(x.parentNode.parentNode)
+  x.parentNode.parentNode.removeChild(x.parentNode);
+}
