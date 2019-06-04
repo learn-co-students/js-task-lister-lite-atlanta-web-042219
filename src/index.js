@@ -1,16 +1,16 @@
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelector('#create-task-form').addEventListener('submit', handleCreateTask)
+  document.querySelector('#sorting').addEventListener('change', handleSortTasks)
 });
 
 function handleCreateTask(e) {
 	if (e.target.new_task_description.value !== '') {
 		e.preventDefault()
-		console.log(e.target)
 		let task = {
 			description: e.target.new_task_description.value,
 			color: e.target.priority.value
+			// date: 
 		}
-		console.log(task)
 		addNewTask(task)
 	}
 }
@@ -40,8 +40,59 @@ function handleDeleteTask(e) {
 }
 
 
+sort_methods = {
+	'alpha': compare_li_text,
+	'asc_prio': ascending_priority,
+	'desc_prio': descending_priority
+}
+
+function handleSortTasks(e) {
+	let ul = document.querySelector('#tasks')
+
+	let nodelist = e.target.parentElement.childNodes[3].childNodes
+	let list_items = Array.prototype.slice.call(nodelist)
+
+	list_items.shift()
+	list_items.sort(sort_methods[e.target.value])
+
+	console.log(list_items[0].style.color)
+
+	for(index in list_items) {
+		list_items[index].remove()
+		ul.appendChild(list_items[index])
+	}
+}
 
 
+function compare_li_text(a, b) {
+  if (a.innerText.toLowerCase() < b.innerText.toLowerCase()){
+    return -1;
+  }
+  if (a.innerText.toLowerCase() > b.innerText.toLowerCase()){
+    return 1;
+  }
+  return 0;
+}
+
+function ascending_priority(a, b) {
+	color_codes = {
+		'red': 4,
+		'orange': 3,
+		'yellow': 2,
+		'green': 1,
+		'black': 0
+	}
+  if (color_codes[a.style.color] < color_codes[b.style.color]){
+    return -1;
+  }
+  if (color_codes[a.style.color] > color_codes[b.style.color]){
+    return 1;
+  }
+  return 0;
+}
+function descending_priority(a, b) {
+	return ascending_priority(b, a)
+}
 
 
 
