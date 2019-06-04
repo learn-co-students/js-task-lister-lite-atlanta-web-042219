@@ -29,7 +29,5 @@ function addTodo(todo){
         // list.appendChild(li)
 }
 function handleDelete(x){
-  console.log(x.parentNode)
-  console.log(x.parentNode.parentNode)
   x.parentNode.parentNode.removeChild(x.parentNode);
 }
