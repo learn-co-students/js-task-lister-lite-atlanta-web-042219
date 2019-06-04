@@ -26,3 +26,5 @@ function addTodo(todo){
 // innerText
       list.appendChild(li)
 }
+
+
